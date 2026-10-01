@@ -1,0 +1,531 @@
+<!doctype html>
+<html lang="ar">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<meta name="referrer" content="no-referrer">
+<title>توسيع المسافة تحت الأخرم بالمنظار — دليل المريض</title>
+<style>
+:root{
+  --ground:#EEF3F2; --paper:#FFFFFF; --ink:#14262E; --ink2:#46585E; --line:#D3DEDC;
+  --accent:#0F6E6A; --accent-soft:#E0EFEC; --caution:#9A5B12; --caution-soft:#FBF1E3;
+  --flag:#A8322A; --flag-soft:#FBE9E7; --focus:#1C8C86;
+  --serif:"IBM Plex Serif",Georgia,"Times New Roman",serif;
+  --sans:"IBM Plex Sans","Segoe UI",system-ui,-apple-system,Arial,sans-serif;
+  --arabic:"IBM Plex Sans Arabic","Segoe UI",Tahoma,"Noto Naskh Arabic",Arial,sans-serif;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    color-scheme:dark;
+    --ground:#0D1618; --paper:#142125; --ink:#E3ECEA; --ink2:#A2B3B2; --line:#2A3A3E;
+    --accent:#5CC0B6; --accent-soft:#17312F; --caution:#E0A55A; --caution-soft:#2E2417;
+    --flag:#F08A7F; --flag-soft:#351C1A; --focus:#6FD3C8;
+  }
+}
+:root[data-theme="dark"]{
+  color-scheme:dark;
+  --ground:#0D1618; --paper:#142125; --ink:#E3ECEA; --ink2:#A2B3B2; --line:#2A3A3E;
+  --accent:#5CC0B6; --accent-soft:#17312F; --caution:#E0A55A; --caution-soft:#2E2417;
+  --flag:#F08A7F; --flag-soft:#351C1A; --focus:#6FD3C8;
+}
+*{box-sizing:border-box}
+body{background:var(--ground);color:var(--ink);font-family:var(--sans);font-size:15px;line-height:1.55;margin:0}
+button,input,select{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+
+.topbar{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--paper);border-bottom:1px solid var(--line);padding:10px 16px;display:flex;flex-wrap:wrap;align-items:center;gap:10px 16px}
+.brand{display:flex;flex-direction:column;margin-inline-end:auto;min-width:0}
+.brand b{font-family:var(--serif);font-weight:600;font-size:18px;letter-spacing:-.01em}
+.brand span{font-size:12.5px;color:var(--ink2)}
+.seg{display:inline-flex;border:1px solid var(--line);border-radius:8px;overflow:hidden}
+.seg button{background:transparent;border:0;padding:6px 12px;cursor:pointer;font-size:13.5px}
+.seg button[aria-pressed="true"]{background:var(--accent);color:var(--paper)}
+.seg button.ar{font-family:var(--arabic)}
+.ghost{background:transparent;border:1px solid var(--line);border-radius:8px;padding:6px 12px;cursor:pointer;font-size:13.5px}
+.ghost[aria-pressed="true"]{border-color:var(--accent);color:var(--accent)}
+
+.layout{display:grid;grid-template-columns:270px minmax(0,1fr);gap:20px;max-width:1280px;margin:0 auto;padding-block:20px;padding-inline:16px}
+.side{position:sticky;top:calc(env(safe-area-inset-top,0px) + 76px);align-self:start;max-height:calc(100vh - 96px);overflow:auto;padding-inline-end:4px}
+.search{width:100%;padding:8px 10px;border:1px solid var(--line);border-radius:8px;background:var(--paper);margin-bottom:12px}
+.grp{margin-bottom:14px}
+.grp h4{margin:0 0 4px;font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink2);font-weight:600;display:flex;justify-content:space-between}
+.grp h4 small{font-family:var(--arabic);letter-spacing:0;text-transform:none;font-size:12px}
+.item{display:block;width:100%;text-align:start;background:transparent;border:0;border-radius:6px;padding:6px 8px;cursor:pointer;line-height:1.3}
+.item:hover{background:var(--accent-soft)}
+.item[aria-current="true"]{background:var(--accent-soft);color:var(--accent);font-weight:600}
+.item .a{display:block;font-family:var(--arabic);font-size:12.5px;color:var(--ink2);font-weight:400;direction:rtl;text-align:end}
+.mobilepick{display:none}
+
+.stage{min-width:0}
+.pair{display:grid;gap:20px}
+.pair.both{grid-template-columns:repeat(auto-fit,minmax(min(100%,460px),1fr))}
+
+.brochure{background:var(--paper);border:1px solid var(--line);border-radius:10px;padding:28px 30px 24px}
+.brochure[lang="ar"]{font-family:var(--arabic);font-size:15.5px;line-height:1.75}
+.bhead{border-bottom:2px solid var(--accent);padding-bottom:14px;margin-bottom:14px}
+.bkicker{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);font-weight:600}
+[lang="ar"] .bkicker{letter-spacing:0;font-size:13px}
+.btitle{font-family:var(--serif);font-size:27px;line-height:1.2;margin:6px 0 4px;font-weight:600;text-wrap:balance;letter-spacing:-.01em}
+[lang="ar"] .btitle{font-family:var(--arabic);font-weight:700;font-size:25px;line-height:1.45}
+.bcond{color:var(--ink2);font-size:15px}
+.glance{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:8px;overflow:hidden;margin:0 0 18px}
+.glance div{background:var(--accent-soft);padding:8px 12px}
+.glance dt{font-size:11.5px;text-transform:uppercase;letter-spacing:.06em;color:var(--ink2)}
+[lang="ar"] .glance dt{text-transform:none;letter-spacing:0;font-size:12.5px}
+.glance dd{margin:2px 0 0;font-weight:600;font-size:14px;line-height:1.35}
+.cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr));gap:4px 26px}
+.bsec{margin-bottom:14px}
+.bsec h3{font-family:var(--serif);font-size:17px;margin:0 0 6px;font-weight:600;color:var(--ink)}
+[lang="ar"] .bsec h3{font-family:var(--arabic);font-weight:700}
+.bsec h4{font-size:13px;margin:10px 0 4px;color:var(--ink2);font-weight:600}
+.bsec p{margin:0;max-width:68ch}
+.bsec ul{margin:0;padding-inline-start:0;list-style:none;display:grid;gap:5px}
+.bsec li{position:relative;padding-inline-start:18px}
+.bsec li::before{content:"";position:absolute;inset-inline-start:2px;top:.62em;width:7px;height:7px;border-radius:50%;background:var(--accent)}
+ul.risk li::before{background:var(--caution);border-radius:1px;transform:rotate(45deg)}
+ul.small{font-size:13.5px;color:var(--ink2)}
+.how{background:var(--ground);border-radius:8px;padding:12px 14px}
+.minihead{display:none}
+
+.recovery{margin-top:6px}
+.timeline{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,150px),1fr));gap:0;position:relative}
+.timeline li{position:relative;padding:22px 12px 4px 0;display:flex;flex-direction:column;gap:3px}
+[dir="rtl"] .timeline li{padding:22px 0 4px 12px}
+.timeline li::before{content:"";position:absolute;top:7px;inset-inline:0;height:2px;background:var(--accent);opacity:.35}
+.tdot{position:absolute;top:2px;inset-inline-start:0;width:12px;height:12px;border-radius:50%;background:var(--paper);border:2.5px solid var(--accent)}
+.timeline li:last-child .tdot{background:var(--accent)}
+.twhen{font-weight:600;color:var(--accent);font-size:14px;font-variant-numeric:tabular-nums}
+.twhat{font-size:13.5px;line-height:1.45}
+.note{font-size:12.5px;color:var(--ink2);margin-top:6px !important}
+.backto{margin:0;display:grid;gap:8px}
+.backto div{display:grid;grid-template-columns:78px 1fr;gap:10px;border-bottom:1px dashed var(--line);padding-bottom:6px}
+.backto dt{font-weight:600;color:var(--accent)}
+.backto dd{margin:0;font-size:14px}
+.flags{background:var(--flag-soft);border:1px solid color-mix(in srgb,var(--flag) 35%,transparent);border-radius:8px;padding:12px 14px}
+.flags h3{color:var(--flag)}
+ul.flag li::before{background:var(--flag);border-radius:2px}
+.disclaimer{font-size:12.5px;color:var(--ink2);border-top:1px solid var(--line);padding-top:10px;margin:14px 0 8px}
+.stamp{display:grid;grid-template-columns:auto 1fr auto 1fr auto 1fr;gap:6px;align-items:end;font-size:12.5px;color:var(--ink2)}
+.stamp i{border-bottom:1px solid var(--line);height:1.2em}
+
+.ic{width:20px;height:20px;flex:none;display:inline-block}
+.glance div{display:flex;gap:10px;align-items:flex-start}
+.glance .ic{color:var(--accent);margin-top:3px;width:22px;height:22px}
+.illus{margin:0 0 18px;display:grid;grid-template-columns:minmax(0,1fr) 28px minmax(0,1fr);gap:10px;align-items:start}
+.ipanel{display:flex;flex-direction:column;gap:6px;align-items:center;text-align:center}
+.ipanel svg{display:block;width:100%;max-width:250px;height:auto;border-radius:10px;border:1.5px solid var(--line)}
+.ipanel.bad svg{border-color:color-mix(in srgb,var(--flag) 45%,var(--line))}
+.ipanel.good svg{border-color:color-mix(in srgb,var(--accent) 45%,var(--line))}
+.ipanel figcaption{font-size:13.5px;line-height:1.4;max-width:250px}
+.ipanel figcaption b{display:block;font-size:12px;text-transform:uppercase;letter-spacing:.06em;margin-bottom:1px}
+[lang="ar"] .ipanel figcaption b{text-transform:none;letter-spacing:0;font-size:13px}
+.ipanel.bad b{color:var(--flag)} .ipanel.good b{color:var(--accent)}
+.iarrow{align-self:center;color:var(--accent);margin-top:-30px}
+.iarrow svg{width:28px;height:28px;display:block}
+[dir="rtl"] .iarrow svg{transform:scaleX(-1)}
+.inote{grid-column:1/-1;font-size:11.5px;color:var(--ink2);margin:0;text-align:center}
+.bsec ul.ico li{padding-inline-start:38px;min-height:28px;display:flex;align-items:center}
+.bsec ul.ico li::before{display:none}
+ul.ico .ic{position:absolute;inset-inline-start:0;top:50%;margin-top:-14px;width:28px;height:28px;padding:4px;border-radius:50%;background:var(--accent-soft);color:var(--accent)}
+ul.ico.flag .ic{background:var(--paper);color:var(--flag)}
+.twhen{display:flex;align-items:center;gap:5px}
+.twhen .ic{width:18px;height:18px}
+.backto div{grid-template-columns:104px 1fr}
+.backto dt{display:flex;align-items:center;gap:6px}
+.backto .ic{width:18px;height:18px}
+.bsec h3 .ic.h{width:19px;height:19px;vertical-align:-3px;margin-inline-end:6px}
+
+.form{container-type:inline-size}
+.form .blk{margin-bottom:16px}
+@container (max-width:600px){.formtop{grid-template-columns:1fr!important}.sigs{grid-template-columns:1fr 1fr!important}ul.rlist li{grid-template-columns:74px 1fr}}
+.formtop{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,330px);gap:16px;align-items:start}
+.dept{font-size:12px;color:var(--ink2);text-transform:uppercase;letter-spacing:.06em}
+[lang="ar"] .dept{text-transform:none;letter-spacing:0;font-size:13px}
+.doctype{font-family:var(--serif);font-weight:600;font-size:19px;color:var(--accent);margin-top:2px}
+[lang="ar"] .doctype,[lang="ar"] .ftitle,[lang="ar"] .numh,[lang="ar"] .doch{font-family:var(--arabic);font-weight:700}
+.label{border:1.5px solid var(--ink2);border-radius:6px;padding:8px 10px;display:grid;gap:7px;font-size:12.5px}
+.label div{display:grid;grid-template-columns:auto 1fr;gap:8px;align-items:end}
+.label span{color:var(--ink2)}
+.label i{border-bottom:1px dotted var(--ink2);height:1.1em}
+.label .sides{display:flex;gap:6px;align-items:center}
+.ftitle{font-family:var(--serif);font-size:25px;line-height:1.25;margin:12px 0 2px;text-wrap:balance;border-top:2px solid var(--accent);padding-top:10px}
+.fsub{color:var(--ink2)}
+.intro{background:var(--accent-soft);border-radius:8px;padding:12px 14px}
+.intro p{margin:0}.dear{font-weight:600;margin-bottom:4px!important}
+.numh{display:flex;gap:10px;align-items:center;font-family:var(--serif);font-size:17px;margin:0 0 6px;font-weight:600}
+.num{display:inline-grid;place-items:center;width:26px;height:26px;border-radius:50%;background:var(--accent);color:var(--paper);font-family:var(--sans);font-size:14px;font-weight:600;flex:none}
+.blk p{margin:0 0 6px;max-width:75ch}
+ul.dash{list-style:none;margin:0 0 6px;padding:0;display:grid;gap:4px}
+ul.dash li{position:relative;padding-inline-start:18px}
+ul.dash li::before{content:"–";position:absolute;inset-inline-start:2px;color:var(--accent);font-weight:700}
+.fine{font-size:13px;color:var(--ink2)}
+.legend{font-size:12.5px;background:var(--ground);border-radius:6px;padding:6px 10px}
+.blk h4{font-size:14px;margin:10px 0 6px}
+ul.rlist{list-style:none;margin:0 0 6px;padding:0;display:grid;gap:5px}
+ul.rlist li{display:grid;grid-template-columns:84px 1fr;gap:10px;align-items:baseline}
+.fq{font-size:11.5px;font-weight:600;border-radius:99px;padding:1px 6px;text-align:center}
+.fq-c{background:#FBE1D3;color:#8A3B12}.fq-u{background:#FFF0C7;color:#6E5100}.fq-r{background:#DDEEEA;color:#1F5E58}
+.glance.small{margin:10px 0 0}
+.sub .bsec{margin-bottom:10px}.sub .bsec h3{font-size:15.5px}
+.docpart{border-top:3px double var(--ink2);margin-top:22px;padding-top:16px}
+.doch{font-family:var(--serif);font-size:16.5px;margin:0 0 8px;display:flex;gap:6px;align-items:center;font-weight:600}
+.qtab{width:100%;border-collapse:collapse;font-size:13.5px}
+.qtab th{font-size:12px;color:var(--ink2);width:46px;text-align:center;font-weight:600}
+.qtab td{border-top:1px solid var(--line);padding:5px 4px;vertical-align:top}
+.qtab td+td{text-align:center}
+.qn{color:var(--ink2);font-variant-numeric:tabular-nums}
+.wh{font-size:13.5px;margin-top:8px!important}
+.cb{display:inline-block;width:13px;height:13px;border:1.5px solid var(--ink);border-radius:2px;vertical-align:-2px;margin-inline-end:5px;background:var(--paper);flex:none}
+.topics{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr));gap:5px 16px;font-size:13.5px;margin-bottom:8px}
+.lines{display:grid;gap:14px;margin:6px 0 10px}.lines i{border-bottom:1px solid var(--line);height:14px;display:block}
+.interp{font-size:13px}
+.decide{border:1.5px dashed var(--line);border-radius:8px;padding:12px 14px}
+.decide.con{border:2px solid var(--accent)}
+.decide p{max-width:none}
+.sigs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px 16px;margin-top:16px}
+.sigs.grid{grid-template-columns:repeat(auto-fit,minmax(min(100%,180px),1fr))}
+.sig i{display:block;border-bottom:1px solid var(--ink);height:30px}
+.sig span{font-size:11.5px;color:var(--ink2)}
+.copy{font-size:13.5px}
+@media screen and (max-width:820px){.formtop{grid-template-columns:1fr}.sigs{grid-template-columns:1fr}ul.rlist li{grid-template-columns:74px 1fr}}
+.srcblk,.bsec.sources{border-top:1px solid var(--line);padding-top:10px;margin-top:6px}
+.srctop{margin:0 0 3px;color:var(--ink2)}
+.srcblk .srch,.sources .srch{display:inline;font-size:.86em;margin:0;color:var(--ink2);font-weight:600}
+.srcnote{font-size:.8em;color:var(--ink2)}
+.srcnote::before{content:"— "}
+ol.srclist{margin:0;padding:0 0 0 1.9em;font-family:var(--sans);font-size:.76em;line-height:1.36;color:var(--ink2);display:grid;gap:2px;text-align:left;list-style:decimal}
+.bsec ol.srclist li{position:static;padding:0}
+.bsec ol.srclist li::before{display:none}
+ol.srclist a{color:inherit;text-decoration:none;white-space:nowrap}
+ol.srclist a.url{white-space:normal;overflow-wrap:anywhere}
+@media screen{ol.srclist a{color:var(--accent)} ol.srclist a:hover{text-decoration:underline}}
+
+/* ── Patient QR panel (doctor view) ── */
+.qrbtn{display:inline-flex;align-items:center;gap:6px}
+.qrbtn svg{width:16px;height:16px}
+.qrpanel{background:var(--paper);border:1.5px solid var(--accent);border-radius:10px;padding:18px 20px;margin-bottom:18px}
+.qrpanel h2{font-family:var(--serif);font-weight:600;font-size:20px;margin:0 0 4px;text-wrap:balance}
+.qrpanel .lead{color:var(--ink2);margin:0 0 14px;max-width:75ch;font-size:14px}
+.qrgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,250px),1fr));gap:16px}
+.qrcard{margin:0;border:1px solid var(--line);border-radius:10px;padding:14px;display:grid;justify-items:center;gap:8px;text-align:center}
+.qrcard .qrbox{background:#fff;border-radius:8px;padding:6px;width:min(220px,100%)}
+.qrcard .qrbox svg{display:block;width:100%;height:auto}
+.qrcard b{font-size:15px}
+.qrcard[lang="ar"]{font-family:var(--arabic)}
+.qrcard .op{font-size:14px;color:var(--ink2);line-height:1.4}
+.qrcard code{font-size:11.5px;word-break:break-all;color:var(--ink2);direction:ltr;unicode-bidi:isolate}
+.qrrow{display:flex;gap:8px;flex-wrap:wrap;justify-content:center}
+.qrrow a,.qrrow button{font-size:13px;border:1px solid var(--line);border-radius:8px;padding:5px 10px;background:transparent;color:var(--accent);text-decoration:none;cursor:pointer}
+.qrset{margin-top:14px;font-size:13.5px}
+.qrset summary{cursor:pointer;color:var(--accent);font-weight:600}
+.qrset label{display:block;margin:10px 0 4px;color:var(--ink2)}
+.qrset input{width:100%;padding:7px 9px;border:1px solid var(--line);border-radius:8px;background:var(--paper);direction:ltr}
+.qrset .qrrow{justify-content:flex-start;margin-top:8px}
+.qrset p{color:var(--ink2);margin:8px 0 0;max-width:75ch}
+.qrnote{font-size:12.5px;color:var(--ink2);margin-top:6px}
+.qrwarn{background:var(--caution-soft);color:var(--caution);border-radius:8px;padding:8px 12px;font-size:13.5px;margin:0 0 12px}
+
+/* ── Patient mode (opened from the QR link) ── */
+body.pmode .topbar,body.pmode .layout{display:none}
+#patient{max-width:780px;margin:0 auto;padding-block:0 28px;padding-inline:16px}
+.phead{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--paper);border-bottom:1px solid var(--line);margin-inline:-16px;padding:10px 16px;display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.phead .plabel{font-weight:600;color:var(--accent);font-size:14px}
+.phead .plabel span{font-family:var(--arabic)}
+.phead .seg button{font-size:15px;padding:7px 14px}
+.pnote{background:var(--accent-soft);border-radius:10px;padding:12px 14px;margin:16px 0;font-size:15.5px;line-height:1.6}
+.pnote[lang="ar"]{font-family:var(--arabic)}
+#patient .brochure{font-size:16.5px}
+#patient .brochure[lang="ar"]{font-size:17px}
+#patient .ipanel svg{max-width:100%}
+.pfoot2{font-size:13px;color:var(--ink2);text-align:center;margin-top:16px;line-height:1.6}
+.pback{font-size:13px;border:1px solid var(--line);border-radius:8px;padding:5px 10px;background:transparent;color:var(--accent);cursor:pointer}
+.pmissing{background:var(--paper);border:1px solid var(--line);border-radius:10px;padding:18px;margin-top:16px}
+.pmissing ul{columns:2;column-gap:24px;padding-inline-start:18px}
+.pmissing a{color:var(--accent)}
+@media screen and (max-width:560px){#patient .brochure{padding:18px 14px;font-size:16px}#patient .brochure[lang="ar"]{font-size:16.5px}.pmissing ul{columns:1}}
+
+.coverage{background:var(--paper);border:1px solid var(--line);border-radius:10px;padding:24px 26px}
+.coverage h2{font-family:var(--serif);font-weight:600;margin:0 0 6px;font-size:22px}
+.coverage p{color:var(--ink2);max-width:72ch;margin:0 0 14px}
+.covgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:18px}
+.covgrid h3{font-size:14px;margin:0 0 6px}
+.covgrid ul{margin:0;padding-inline-start:18px;font-size:14px}
+.covgrid li{margin-bottom:4px}
+.covgrid li em{color:var(--ink2);font-style:normal;font-size:13px}
+.pill{display:inline-block;font-size:11.5px;padding:1px 8px;border-radius:99px;background:var(--accent-soft);color:var(--accent);font-weight:600;margin-inline-start:6px}
+.hint{font-size:12.5px;color:var(--ink2);margin:0 0 12px}
+
+@media screen and (max-width:820px){
+  .layout{grid-template-columns:1fr}
+  .side{display:none}
+  .mobilepick{display:block;width:100%;padding:9px 10px;border:1px solid var(--line);border-radius:8px;background:var(--paper);margin-bottom:14px}
+  .brochure{padding:20px 16px}
+  .glance{grid-template-columns:1fr}
+  .btitle{font-size:23px}
+  .stamp{grid-template-columns:auto 1fr}
+}
+@media (prefers-reduced-motion:no-preference){.brochure{animation:rise .25s ease-out both}@keyframes rise{from{transform:translateY(4px)}to{transform:none}}}
+
+body{margin:0}
+#patient{display:block}
+.pscan{margin-top:28px;text-align:center}
+.pscan svg{width:64px;height:64px;color:var(--accent);margin:0 auto 6px;display:block}
+.pscan .pnote{text-align:start}
+</style>
+</head>
+<body>
+<div id="patient"></div>
+<script>
+// Simple pictograms (24×24, stroke) for care steps, warning signs and recovery stages
+window.ICONS = {
+  sling: '<path d="M6 3l6 10 6-10"/><path d="M5 13h14v3a4 4 0 0 1-4 4H9a4 4 0 0 1-4-4z"/>',
+  crutch: '<path d="M7 3h4M9 3v18M7 21h4M9 11H6"/><path d="M15 3h4M17 3v18M15 21h4M17 11h-3"/>',
+  ice: '<path d="M5 8l7-4 7 4v8l-7 4-7-4z"/><path d="M5 8l7 4 7-4M12 12v8"/>',
+  up: '<path d="M3 20h18"/><path d="M4 17h7l7-6"/><path d="M19 3v6M16.5 5.5 19 3l2.5 2.5"/>',
+  dry: '<path d="M12 3c3 4 5 7 5 10a5 5 0 0 1-10 0c0-3 2-6 5-10z"/><path d="M4 4l16 16"/>',
+  pill: '<rect x="3" y="8.5" width="18" height="7" rx="3.5" transform="rotate(-35 12 12)"/><path d="M9.6 8.6l4.2 6"/>',
+  shield: '<path d="M12 3l7 3v5c0 5-3 8-7 10-4-2-7-5-7-10V6z"/><path d="M9 12l2 2 4-4"/>',
+  exercise: '<circle cx="6" cy="6" r="2"/><path d="M3 20h18M6 10v5l5 3M6 12l6-3 5-4"/>',
+  weights: '<path d="M3 10v4M6 7v10M18 7v10M21 10v4M6 12h12"/>',
+  brace: '<path d="M8 3v18M16 3v18M6 8h12M6 16h12"/><circle cx="12" cy="12" r="2"/>',
+  boot: '<path d="M8 3h6v10l5 3v4H6V3z"/><path d="M8 8h6"/>',
+  walker: '<path d="M6 5h12M7 5 5 20M17 5l2 15M6 12h12"/>',
+  bike: '<circle cx="6" cy="16" r="3.5"/><circle cx="18" cy="16" r="3.5"/><path d="M6 16l4-7h5l3 7M10 9l3 7M9 6h3"/>',
+  run: '<circle cx="14" cy="4.5" r="2"/><path d="M8 21l3-6 3 2v4M11 15l1-5 4 2 2-2M12 10l-3 1-2 3"/>',
+  sleep: '<path d="M3 19v-9M3 15h18v4M21 19v-4"/><path d="M6 12h4v3"/><path d="M14 5h4l-4 4h4"/>',
+  nosmoke: '<path d="M3 14h13v3H3zM18 14v3M20.5 14v3M17 11c0-2 2-2 2-4"/><path d="M4 4l16 16"/>',
+  noweight: '<path d="M6 10h12l1.5 10h-15z"/><path d="M9 10V8a3 3 0 0 1 6 0v2"/><path d="M4 4l16 16"/>',
+  info: '<circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5v.5"/>',
+  calendar: '<rect x="4" y="5" width="16" height="15" rx="2"/><path d="M4 10h16M9 3v4M15 3v4"/>',
+  clock: '<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>',
+  syringe: '<path d="M18 3l3 3M16.5 4.5l3 3M19 6l-9.5 9.5-4 1 1-4L16 3"/><path d="M5.5 18.5 3 21M9 10l3 3"/>',
+  hospital: '<path d="M4 21V5h16v16M9 21v-4h6v4M12 8v5M9.5 10.5h5"/>',
+  work: '<rect x="3" y="8" width="18" height="12" rx="2"/><path d="M9 8V5h6v3M3 13h18"/>',
+  car: '<path d="M4 16V12l2-5h12l2 5v4z"/><path d="M4 12h16"/><circle cx="7.5" cy="16.5" r="1.8"/><circle cx="16.5" cy="16.5" r="1.8"/>',
+  sport: '<circle cx="12" cy="12" r="9"/><path d="M12 7l4 3-1.5 5h-5L8 10z"/>',
+  fever: '<path d="M10 14V5a2 2 0 0 1 4 0v9a4 4 0 1 1-4 0z"/><path d="M12 9v7"/>',
+  wound: '<rect x="3" y="8" width="18" height="8" rx="4" transform="rotate(-30 12 12)"/><path d="M10 11h.01M14 13h.01M12 12h.01"/>',
+  clot: '<path d="M9 3v7c0 3-2 5-2 8v3h8v-3c0-3 1-5 1-8V3"/><circle cx="12" cy="13" r="1.8"/>',
+  cold: '<path d="M12 3v18M4.5 7.5l15 9M19.5 7.5l-15 9"/>',
+  pain: '<path d="M13 2 5 13h6l-1 9 8-11h-6z"/>',
+  bleed: '<path d="M12 3c3 4 6 8 6 11a6 6 0 0 1-12 0c0-3 3-7 6-11z"/>',
+  alert: '<path d="M12 3 2 20h20z"/><path d="M12 10v4M12 17v.5"/>',
+  fast: '<path d="M7 3v8M5 3v4a2 2 0 0 0 4 0V3M7 11v10M17 21V3c-2 0-3 3-3 7h3"/><path d="M3 3l18 18"/>',
+  sugar: '<path d="M12 3c3 4 5 7 5 10a5 5 0 0 1-10 0c0-3 2-6 5-10z"/><path d="M10 13h4"/>',
+  home: '<path d="M3 11l9-7 9 7"/><path d="M5 10v10h14V10M10 20v-5h4v5"/>',
+  hand: '<path d="M8 21v-3l-3-5a1.5 1.5 0 0 1 2.5-1.5L9 13V5a1.5 1.5 0 0 1 3 0v6-8a1.5 1.5 0 0 1 3 0v8-6a1.5 1.5 0 0 1 3 0v9c0 4-2 6-4 7"/>',
+  check: '<circle cx="12" cy="12" r="9"/><path d="M8 12l3 3 5-6"/>'
+};
+
+window.iconFor = function (text, kind) {
+  var t = text.toLowerCase();
+  var rules = {
+    care: [
+      [/sling/, "sling"], [/crutch|weight on|weight-bearing|weight limit/, "crutch"], [/\bice\b|ice packs/, "ice"],
+      [/elevat|raised|above heart|arm up|keep the hand/, "up"], [/dry|dressing|wound|shower|stitches/, "dry"],
+      [/clot/, "shield"], [/pain relief|painkiller|tablets/, "pill"], [/smok|alcohol/, "nosmoke"],
+      [/brace|splint/, "brace"], [/post-operative shoe|shoe|boot/, "boot"], [/sleep|pillow|lying/, "sleep"],
+      [/lift|carry|grip|pinch|twist|push yourself|lean/, "noweight"], [/sugar|diabet/, "sugar"],
+      [/imaging|x-ray|follow-up|appointment/, "calendar"], [/patient|months to improve/, "clock"],
+      [/physio|exercise|move|stretch|therapy|bend/, "exercise"], [/doctor|dentist|tell|kneel|chair|toilet|precaution|limits|expect/, "info"]
+    ],
+    flag: [
+      [/fever|38/, "fever"], [/calf|breath|chest/, "clot"], [/wound|pus|edges/, "wound"],
+      [/numb|pale|cold|blue|white|lift the foot/, "cold"], [/bleed|soak/, "bleed"], [/pain/, "pain"]
+    ],
+    phase: [
+      [/sling/, "sling"], [/plaster|boot|cast/, "boot"], [/frame/, "walker"], [/crutch|partial weight|no weight/, "crutch"],
+      [/brace|splint/, "brace"], [/bike|cycling/, "bike"], [/running|jog|sport|return to|agility|dance/, "run"],
+      [/strength|gym/, "weights"], [/x-ray|mri|imaging/, "calendar"], [/walk/, "walker"], [/exercise|movement|stretch|move|physio|therap/, "exercise"]
+    ]
+  }[kind] || [];
+  for (var i = 0; i < rules.length; i++) if (rules[i][0].test(t)) return rules[i][1];
+  return kind === "flag" ? "alert" : "check";
+};
+
+window.icon = function (name, cls) {
+  return '<svg class="ic ' + (cls || "") + '" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' + (ICONS[name] || ICONS.check) + "</svg>";
+};
+
+// Shared brochure renderer — used by the web viewer and the print/PDF build
+window.LABELS = {
+  en: {
+    dir: "ltr", guide: "Patient guide", about: "About your condition", why: "When is surgery recommended?",
+    how: "The operation", anaes: "Anaesthesia", time: "Operation time", stay: "Hospital stay",
+    alt: "Other options", risks: "Risks of this operation", general: "Risks of any operation",
+    recovery: "Your recovery timeline", recNote: "Typical times — everyone heals at a different pace.",
+    care: "Caring for yourself after surgery", back: "Getting back to normal",
+    work: "Work", drive: "Driving", sport: "Sport", flags: "Contact us or go to the Emergency Department if you have",
+    before: "Before your surgery", surgeon: "Surgeon", phone: "Clinic phone", followup: "Follow-up date",
+    problem: "The problem", fix: "After surgery", picNote: "Simplified drawing"
+  },
+  ar: {
+    dir: "rtl", guide: "دليل المريض", about: "عن حالتك", why: "متى ننصح بالعملية؟",
+    how: "العملية", anaes: "التخدير", time: "مدة العملية", stay: "مدة البقاء في المستشفى",
+    alt: "خيارات أخرى", risks: "مخاطر هذه العملية", general: "مخاطر أي عملية جراحية",
+    recovery: "مراحل التعافي", recNote: "مدد تقريبية، ويختلف التعافي من شخص لآخر.",
+    care: "العناية بنفسك بعد العملية", back: "العودة إلى الحياة الطبيعية",
+    work: "العمل", drive: "القيادة", sport: "الرياضة", flags: "تواصل معنا أو توجّه إلى الطوارئ إذا ظهر لديك",
+    before: "قبل العملية", surgeon: "الجرّاح", phone: "هاتف العيادة", followup: "موعد المراجعة",
+    problem: "المشكلة", fix: "بعد العملية", picNote: "رسم توضيحي مبسّط"
+  }
+};
+
+(function () {
+  var BEFORE_ICONS = ["fast", "pill", "sugar", "nosmoke", "home"];
+  function esc(s) { return String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;"); }
+  function list(items, cls) { return '<ul class="' + (cls || "") + '">' + items.map(function (i) { return "<li>" + esc(i) + "</li>"; }).join("") + "</ul>"; }
+  function iconList(items, names, cls) {
+    return '<ul class="ico ' + (cls || "") + '">' + items.map(function (i, k) { return "<li>" + icon(names[k]) + "<span>" + esc(i) + "</span></li>"; }).join("") + "</ul>";
+  }
+  function sec(title, body, cls, ic) { return '<section class="bsec ' + (cls || "") + '"><h3>' + (ic ? icon(ic, "h") : "") + esc(title) + "</h3>" + body + "</section>"; }
+
+  function head(b, L, t, C) {
+    return '<header class="bhead">' +
+      '<div class="bkicker">' + esc(t.guide) + " · " + esc(C.groups[b.group][L]) + "</div>" +
+      '<h2 class="btitle">' + esc(b[L].op) + "</h2>" +
+      '<div class="bcond">' + esc(b[L].name) + "</div>" +
+      "</header>";
+  }
+  function glance(d, t) {
+    return '<dl class="glance">' +
+      "<div>" + icon("syringe") + "<span><dt>" + esc(t.anaes) + "</dt><dd>" + esc(d.meta.anaes) + "</dd></span></div>" +
+      "<div>" + icon("clock") + "<span><dt>" + esc(t.time) + "</dt><dd>" + esc(d.meta.time) + "</dd></span></div>" +
+      "<div>" + icon("hospital") + "<span><dt>" + esc(t.stay) + "</dt><dd>" + esc(d.meta.stay) + "</dd></span></div>" +
+      "</dl>";
+  }
+  function illus(b, L, t) {
+    if (!window.ILLUS || !ILLUS.has(b.id)) return "";
+    var p = ILLUS.panels(b.id), cap = p[L];
+    return '<figure class="illus">' +
+      '<div class="ipanel bad">' + p.problem + '<figcaption><b>' + esc(t.problem) + "</b>" + esc(cap[0]) + "</figcaption></div>" +
+      '<div class="iarrow" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>' +
+      '<div class="ipanel good">' + p.fix + '<figcaption><b>' + esc(t.fix) + "</b>" + esc(cap[1]) + "</figcaption></div>" +
+      '<p class="inote">' + esc(t.picNote) + "</p></figure>";
+  }
+  function timeline(b, L, t) {
+    var d = b[L];
+    return '<ol class="timeline">' + d.phases.map(function (p, k) {
+      return '<li><span class="tdot"></span><span class="twhen">' + icon(iconFor(b.en.phases[k][1], "phase"), "t") + esc(p[0]) + '</span><span class="twhat">' + esc(p[1]) + "</span></li>";
+    }).join("") + "</ol>" + '<p class="note">' + esc(t.recNote) + "</p>";
+  }
+  function backTable(d, t) {
+    return '<dl class="backto">' +
+      "<div><dt>" + icon("work") + esc(t.work) + "</dt><dd>" + esc(d.back.work) + "</dd></div>" +
+      "<div><dt>" + icon("car") + esc(t.drive) + "</dt><dd>" + esc(d.back.drive) + "</dd></div>" +
+      "<div><dt>" + icon("run") + esc(t.sport) + "</dt><dd>" + esc(d.back.sport) + "</dd></div>" +
+      "</dl>";
+  }
+  function stamp(t) {
+    return '<div class="stamp"><span>' + esc(t.surgeon) + ':</span><i></i><span>' + esc(t.phone) + ':</span><i></i><span>' + esc(t.followup) + ':</span><i></i></div>';
+  }
+  function careIcons(b) { return b.en.care.map(function (c) { return iconFor(c, "care"); }); }
+  function flagIcons(b) { return b.en.flags.concat(COMMON.en.generalFlags).map(function (c) { return iconFor(c, "flag"); }); }
+  function mini(d) { return '<div class="minihead"><strong>' + esc(d.op) + "</strong> — " + esc(d.name) + "</div>"; }
+
+  // Part 1: condition + pictures + operation
+  window.renderPart1 = function (b, L) {
+    var d = b[L], t = LABELS[L], C = COMMON;
+    return head(b, L, t, C) + glance(d, t) + illus(b, L, t) +
+      '<div class="cols">' + sec(t.about, "<p>" + esc(d.what) + "</p>") + sec(t.why, "<p>" + esc(d.why) + "</p>") + "</div>" +
+      sec(t.how, "<p>" + esc(d.how) + "</p>", "how");
+  };
+  // Part 2: options, risks, before surgery
+  window.renderPart2 = function (b, L) {
+    var d = b[L], t = LABELS[L], C = COMMON;
+    return '<div class="cols">' +
+      sec(t.alt, list(d.alt, "alt")) +
+      sec(t.risks, list(d.risks, "risk") + "<h4>" + esc(t.general) + "</h4>" + list(C[L].generalRisks, "risk small"), "risks") +
+      "</div>" +
+      sec(t.before, iconList(C[L].beforeSurgery, BEFORE_ICONS, "before"), "beforesec", "calendar");
+  };
+  // Part 3: recovery timeline and aftercare (the timeline moved here from part 2 in the final review, to keep
+  // every printed leaflet page at 9.6 pt or more after the corrections lengthened the risk lists)
+  window.renderPart3 = function (b, L) {
+    var d = b[L], t = LABELS[L], C = COMMON;
+    return sec(t.recovery, timeline(b, L, t), "recovery") +
+      sec(t.care, iconList(d.care, careIcons(b), "care")) +
+      sec(t.back, backTable(d, t)) +
+      sec(t.flags, iconList(d.flags.concat(C[L].generalFlags), flagIcons(b), "flag"), "flags", "alert") +
+      '<p class="disclaimer">' + esc(C[L].disclaimer) + "</p>" + stamp(t);
+  };
+  // Sources (added in the final review). Heading and note follow the page language; the citations stay in
+  // English inside a left-to-right list, so they read correctly on Arabic (RTL) pages too.
+  window.SRC = {
+    en: { h: "Sources for this information",
+      form: "The figures quoted in this form are based on these publications.",
+      leaf: "The figures quoted in this leaflet are based on these publications." },
+    ar: { h: "مصادر هذه المعلومات",
+      form: "تستند الأرقام الواردة في هذا النموذج إلى هذه المصادر (وهي باللغة الإنجليزية).",
+      leaf: "تستند الأرقام الواردة في هذه النشرة إلى هذه المصادر (وهي باللغة الإنجليزية)." }
+  };
+  window.sourceList = function (b) { return window.REFS ? (REFS[b.id] || []).concat(REFS.general || []) : []; };
+  window.renderSourcesInner = function (b, L, kind) {
+    var list = sourceList(b), s = SRC[L];
+    if (!list.length) return "";
+    var attr = function (x) { return esc(x).replace(/"/g, "&quot;"); };
+    // web sources show their host name; the link itself keeps the full address (clickable on screen and in the PDF)
+    return '<div class="srctop"><h4 class="srch">' + esc(s.h) + '</h4> <span class="srcnote">' + esc(s[kind]) + "</span></div>" +
+      '<ol class="srclist" dir="ltr" lang="en">' + list.map(function (r) {
+        var id = r.p ? '<a href="https://pubmed.ncbi.nlm.nih.gov/' + attr(r.p) + '/">PMID ' + esc(r.p) + "</a>"
+          : '<a class="url" href="' + attr(r.u) + '">' + esc(r.u.replace(/^https?:\/\/(www\.)?/, "").split("/")[0]) + "</a>";
+        return '<li><span dir="ltr">' + esc(r.c) + " " + id + "</span></li>";
+      }).join("") + "</ol>";
+  };
+  window.renderSources = function (b, L) {
+    var inner = renderSourcesInner(b, L, "leaf");
+    return inner ? '<section class="bsec sources">' + inner + "</section>" : "";
+  };
+  window.renderMini = function (b, L) { return mini(b[L]); };
+  window.renderPart2Before = function (b, L) { var t = LABELS[L]; return sec(t.before, iconList(COMMON[L].beforeSurgery, BEFORE_ICONS, "before"), "beforesec", "calendar"); };
+  window.renderTimelineOnly = function (b, L) { var t = LABELS[L]; return sec(t.recovery, timeline(b, L, t), "recovery"); };
+  window.renderPart3Body = function (b, L) {
+    var d = b[L], t = LABELS[L], C = COMMON;
+    return sec(t.care, iconList(d.care, careIcons(b), "care")) + sec(t.back, backTable(d, t)) +
+      sec(t.flags, iconList(d.flags.concat(C[L].generalFlags), flagIcons(b), "flag"), "flags", "alert");
+  };
+  window.renderBrochure = function (b, L) {
+    return '<article class="brochure" dir="' + LABELS[L].dir + '" lang="' + L + '">' + renderPart1(b, L) + renderPart2(b, L) + renderPart3(b, L) + renderSources(b, L) + "</article>";
+  };
+})();
+
+window.COMMON={"en": {"generalRisks": ["Reaction to anaesthesia (nausea, sore throat, rarely more serious)", "Wound infection (up to about 1–2 in 100; fewer after small or keyhole operations); deep infection is uncommon but may need further surgery", "Bleeding or bruising around the wound", "Blood clots in the leg (DVT) or lung (PE) — uncommon; more likely after hip or knee replacement or when the leg is in a plaster or boot", "Stiffness, persistent pain, or a sensitive or thick scar", "Injury to nearby nerves or blood vessels (rare)", "Need for further surgery if healing is incomplete or the problem returns"], "generalFlags": ["Fever of 38 °C or above, or shivering", "Wound becoming red, hot, swollen, opening, or leaking fluid or pus", "Painful, swollen calf, or sudden shortness of breath or chest pain — go to the Emergency Department immediately", "Fingers or toes becoming numb, pale, blue or cold", "Pain that is getting worse and is not controlled by your tablets", "Bleeding that soaks through the dressing"], "beforeSurgery": ["Stop eating 6 hours before surgery (longer after a heavy or fatty meal). Unless told otherwise, you may drink clear fluids (water, pulp-free juice, or tea or coffee without milk) until 2 hours before.", "Tell us about all your medicines — blood thinners, aspirin, some diabetes tablets and weight-loss injections (such as semaglutide) may need to be stopped or changed", "Keep your blood sugar well controlled if you are diabetic", "Stop smoking — it slows bone and wound healing and increases infection", "Arrange help at home and transport for the day you leave hospital"], "disclaimer": "This leaflet gives general information. Your surgeon will explain the details that apply to you. Please ask any questions before signing your consent form. You will receive a copy of the signed form."}, "ar": {"generalRisks": ["مضاعفات التخدير (غثيان، ألم في الحلق، ونادراً مضاعفات أشد)", "التهاب الجرح (حتى ١–٢ من كل ١٠٠ مريض تقريباً، وأقل بعد العمليات الصغيرة أو بالمنظار)، والالتهاب العميق غير شائع وقد يحتاج إلى عملية أخرى", "نزيف أو كدمات حول الجرح", "جلطات في أوردة الساق أو في الرئة، وهي غير شائعة، لكنها أكثر احتمالاً بعد تغيير مفصل الورك أو الركبة أو عند وضع الساق في جبيرة أو حذاء طبي", "تيبّس، أو استمرار الألم، أو ندبة حساسة أو سميكة", "إصابة الأعصاب أو الأوعية الدموية القريبة (نادرة)", "الحاجة إلى عملية أخرى إذا لم يكتمل الالتئام أو عادت المشكلة"], "generalFlags": ["حرارة ٣٨ درجة مئوية أو أعلى، أو رعشة", "احمرار الجرح أو سخونته أو تورّمه أو انفتاحه أو خروج سوائل أو صديد منه", "ألم وتورّم في بطن الساق، أو ضيق تنفّس مفاجئ أو ألم في الصدر — توجّه إلى الطوارئ فوراً", "خدر أو شحوب أو زرقة أو برودة في الأصابع", "ألم يزداد ولا يخفّ مع المسكّنات", "نزيف يبلّل الضماد"], "beforeSurgery": ["توقّف عن الأكل ٦ ساعات قبل العملية (ومدة أطول بعد وجبة ثقيلة أو دسمة). ويمكنك شرب السوائل الصافية (الماء، أو العصير بدون لب، أو الشاي أو القهوة بدون حليب) حتى ساعتين قبل العملية، ما لم يُطلب منك غير ذلك.", "أخبرنا بجميع أدويتك، فقد يلزم إيقاف أو تعديل مميّعات الدم والأسبرين وبعض أدوية السكري وإبر إنقاص الوزن (مثل السيماغلوتايد)", "حافظ على انضباط مستوى السكر إذا كنت مريض سكري", "توقّف عن التدخين، فهو يؤخّر التئام العظم والجرح ويزيد خطر الالتهاب", "رتّب من يساعدك في المنزل ووسيلة نقل يوم خروجك من المستشفى"], "disclaimer": "هذه النشرة تقدّم معلومات عامة، وسيشرح لك جرّاحك التفاصيل الخاصة بحالتك. نرجو طرح جميع أسئلتك قبل التوقيع على نموذج الموافقة، وستحصل على نسخة من النموذج الموقّع."}, "groups": {"knee": {"en": "Knee", "ar": "الركبة"}, "hip": {"en": "Hip", "ar": "الورك"}, "shoulder": {"en": "Shoulder", "ar": "الكتف"}, "foot": {"en": "Foot & Ankle", "ar": "القدم والكاحل"}, "hand": {"en": "Hand, Wrist & Elbow", "ar": "اليد والرسغ والمرفق"}}};
+window.BROCHURES=[{"id": "sad", "group": "shoulder", "en": {"name": "Shoulder Impingement", "op": "Arthroscopic Subacromial Decompression", "what": "Impingement is pain when the rotator cuff tendons and the bursa (a fluid sac) are irritated under the bony roof of the shoulder (the acromion), especially when lifting the arm. It often comes with tendinopathy or bursitis.", "why": "Most people improve with physiotherapy and injections. Large trials show that shaving the bone adds no clear benefit, so surgery is considered only if pain continues after at least 6 months of good non-surgical treatment, usually when another problem needs treatment at the same time.", "how": "Through 2–3 small keyhole cuts, the inflamed bursa is removed and the underside of the acromion is shaved to create more space. The rotator cuff is inspected and treated if needed.", "meta": {"anaes": "General, often with a nerve block", "time": "30–60 minutes", "stay": "Day case"}, "alt": ["Structured physiotherapy (exercise) for 3–6 months — the usual first treatment", "Ultrasound-guided steroid injection into the bursa", "Pain relief medicines and adjusting overhead activities"], "risks": ["Pain may not improve — large trials found that shaving the bone gave no more benefit than a 'look-only' keyhole operation", "Stiffness or frozen shoulder (about 2 in 100)"], "phases": [["Week 0–2", "Sling for comfort for a few days only. Start moving the arm early as pain allows."], ["Week 2–6", "Regain full movement; light daily activities."], ["Week 6–12", "Strengthening; return to most activities."], ["Month 3–6", "Full recovery and overhead activities."]], "care": ["Use the sling for comfort only and remove it as soon as you can", "Do your movement exercises several times a day", "Keep wounds dry for 10–14 days"], "back": {"work": "Office work 1 week; manual work 6–8 weeks", "drive": "About 2 weeks", "sport": "Overhead sport 3 months"}, "flags": []}, "ar": {"name": "انحشار الكتف (احتكاك أوتار الكتف)", "op": "توسيع المسافة تحت الأخرم بالمنظار", "what": "الانحشار هو ألم ينتج عن تهيّج أوتار الكفّة المدوّرة والجراب (كيس سائل) تحت السقف العظمي للكتف (الأخرم)، خاصة عند رفع الذراع، ويصاحبه غالباً التهاب الأوتار أو الجراب.", "why": "يتحسّن معظم المرضى بالعلاج الطبيعي والحقن. وقد أظهرت دراسات كبيرة أن برد العظم لا يضيف فائدة واضحة، لذلك لا نفكر في العملية إلا إذا استمر الألم بعد ٦ أشهر على الأقل من علاج غير جراحي جيد، وغالباً عند وجود مشكلة أخرى تحتاج إلى علاج في نفس الوقت.", "how": "من خلال ٢–٣ فتحات صغيرة بالمنظار يُزال الجراب الملتهب ويُبرد الجزء السفلي من الأخرم لتوسيع المسافة، ويُفحص الوتر ويُعالج عند الحاجة.", "meta": {"anaes": "تخدير عام، غالباً مع إبرة تخدير للعصب", "time": "٣٠–٦٠ دقيقة", "stay": "خروج في اليوم نفسه"}, "alt": ["برنامج علاج طبيعي منظّم (تمارين) لمدة ٣–٦ أشهر، وهو العلاج الأول المعتاد", "حقنة كورتيزون في الجراب بتوجيه الأشعة الصوتية", "المسكّنات وتعديل الأنشطة فوق مستوى الرأس"], "risks": ["قد لا يتحسّن الألم، فقد وجدت دراسات كبيرة أن برد العظم لم يعطِ فائدة أكبر من عملية منظار للفحص فقط", "تيبّس أو تجمّد الكتف (حوالي ٢ من كل ١٠٠)"], "phases": [["الأسبوع ٠–٢", "العلاقة للراحة لأيام قليلة فقط، والبدء بتحريك الذراع مبكراً حسب تحمّل الألم."], ["الأسبوع ٢–٦", "استعادة الحركة الكاملة والأنشطة اليومية الخفيفة."], ["الأسبوع ٦–١٢", "تمارين التقوية والعودة لمعظم الأنشطة."], ["الشهر ٣–٦", "التعافي الكامل والأنشطة فوق مستوى الرأس."]], "care": ["استخدم العلاقة للراحة فقط وأزلها بأسرع ما يمكن", "مارس تمارين الحركة عدة مرات يومياً", "أبقِ الجروح جافة لمدة ١٠–١٤ يوماً"], "back": {"work": "العمل المكتبي أسبوع، والبدني ٦–٨ أسابيع", "drive": "حوالي أسبوعين", "sport": "الرياضات فوق الرأس بعد ٣ أشهر"}, "flags": []}}];
+window.REFS={"general": [{"c": "American Society of Anesthesiologists. Practice guidelines for preoperative fasting and the use of pharmacologic agents to reduce the risk of pulmonary aspiration: application to healthy patients undergoing elective procedures: an updated report. Anesthesiology. 2017;126(3):376-93.", "p": "28045707"}, {"c": "UK Health Security Agency. Surveillance of surgical site infections in NHS hospitals in England: April 2024 to March 2025. London: UKHSA; 2025.", "u": "https://assets.publishing.service.gov.uk/media/69383a867a605b2d61cd8fa0/SSISS-annual-report-2024-to-2025.pdf"}, {"c": "Januel JM, Chen G, Ruffieux C, et al. Symptomatic in-hospital deep vein thrombosis and pulmonary embolism following hip and knee arthroplasty among patients receiving recommended prophylaxis: a systematic review. JAMA. 2012;307(3):294-303.", "p": "22253396"}, {"c": "Sørensen LT. Wound healing and infection in surgery: the clinical impact of smoking and smoking cessation: a systematic review and meta-analysis. Arch Surg. 2012;147(4):373-83.", "p": "22508785"}], "sad": [{"c": "Beard DJ, Rees JL, Cook JA, et al. Arthroscopic subacromial decompression for subacromial shoulder pain (CSAW): a multicentre, pragmatic, parallel group, placebo-controlled, three-group, randomised surgical trial. Lancet. 2018;391(10118):329-38.", "p": "29169668"}, {"c": "Paavola M, Malmivaara A, Taimela S, et al. Subacromial decompression versus diagnostic arthroscopy for shoulder impingement: randomised, placebo surgery controlled clinical trial. BMJ. 2018;362:k2860.", "p": "30026230"}, {"c": "Vandvik PO, Lähdeoja T, Ardern C, et al. Subacromial decompression surgery for adults with shoulder pain: a clinical practice guideline. BMJ. 2019;364:l294.", "p": "30728120"}]};
+window.ILLUS=(function(P,ID){return{has:function(i){return i===ID;},panels:function(){return P;}};})({"problem": "<svg viewBox=\"0 0 200 220\" role=\"img\" aria-hidden=\"true\" class=\"illus-svg\"><rect x=\"0\" y=\"0\" width=\"200\" height=\"220\" rx=\"10\" fill=\"#F8FBFA\"/><g><path d=\"M-4 44 L58 52 Q74 60 80 70 Q72 100 80 130 Q64 160 30 224 L-4 224 Z\" fill=\"#F4ECDD\" stroke=\"#7A6450\" stroke-width=\"1.6\" stroke-linejoin=\"round\" /><path d=\"M80 70 Q72 100 80 130\" fill=\"none\" stroke=\"#86BCD8\" stroke-width=\"4\" stroke-linecap=\"round\" stroke-linejoin=\"round\" /><g transform=\"rotate(0.00 0 30)\"><path d=\"M-4 22 Q50 13 99 24 Q104 31 99 38 Q50 30 -4 37 Z\" fill=\"#F4ECDD\" stroke=\"#7A6450\" stroke-width=\"1.6\" stroke-linejoin=\"round\" /><\/g><path d=\"M106 25 Q136 19 158 27 Q170 35 162 45 Q136 41 107 44 Q104 34 106 25 Z\" fill=\"#F4ECDD\" stroke=\"#7A6450\" stroke-width=\"1.6\" stroke-linejoin=\"round\" /><path d=\"M96 23 L114 24\" fill=\"none\" stroke=\"#DE8A5E\" stroke-width=\"4\" stroke-linecap=\"round\" stroke-linejoin=\"round\" /><path d=\"M114 42 L134 41 L124 53 Z\" fill=\"#EFC3B9\" stroke=\"#C0392B\" stroke-width=\"1.4\" stroke-linejoin=\"round\"/><ellipse cx=\"126\" cy=\"52\" rx=\"22\" ry=\"4.5\" fill=\"#F2B8AE\" stroke=\"#C0392B\" stroke-width=\"1\"/><path d=\"M100 120 L144 120 L140 224 L108 224 Z\" fill=\"#F4ECDD\" stroke=\"#7A6450\" stroke-width=\"1.6\" stroke-linejoin=\"round\" /><circle cx=\"120\" cy=\"100\" r=\"34\" fill=\"#F4ECDD\" stroke=\"#7A6450\" stroke-width=\"1.6\"/><path d=\"M93 78 A35 35 0 0 0 93 122\" fill=\"none\" stroke=\"#86BCD8\" stroke-width=\"4\" stroke-linecap=\"round\" stroke-linejoin=\"round\" /><path d=\"M78 64 L91 68 L80 77 Z\" fill=\"#B9D6E4\" stroke=\"#6E9DB5\" stroke-width=\"1.1\"/><path d=\"M78 136 L91 132 L80 123 Z\" fill=\"#B9D6E4\" stroke=\"#6E9DB5\" stroke-width=\"1.1\"/><path d=\"M36 50 Q100 40 150 82\" fill=\"none\" stroke=\"#DE8A5E\" stroke-width=\"10\" stroke-linecap=\"round\" stroke-linejoin=\"round\" /><\/g><circle cx=\"124\" cy=\"48\" r=\"18\" fill=\"#C0392B\" fill-opacity=\".08\" stroke=\"#C0392B\" stroke-width=\"2\" stroke-dasharray=\"4 3\"/><g transform=\"translate(186 14)\"><circle r=\"8\" fill=\"#C0392B\"/><path d=\"M-3 -3 L3 3 M3 -3 L-3 3\" stroke=\"#fff\" stroke-width=\"2\" stroke-linecap=\"round\"/><\/g><\/svg>", "fix": "<svg viewBox=\"0 0 200 220\" role=\"img\" aria-hidden=\"true\" class=\"illus-svg\"><rect x=\"0\" y=\"0\" width=\"200\" height=\"220\" rx=\"10\" fill=\"#F8FBFA\"/><g><path d=\"M-4 44 L58 52 Q74 60 80 70 Q72 100 80 130 Q64 160 30 224 L-4 224 Z\" fill=\"#F4ECDD\" stroke=\"#7A6450\" stroke-width=\"1.6\" stroke-linejoin=\"round\" /><path d=\"M80 70 Q72 100 80 130\" fill=\"none\" stroke=\"#86BCD8\" stroke-width=\"4\" stroke-linecap=\"round\" stroke-linejoin=\"round\" /><g transform=\"rotate(0.00 0 30)\"><path d=\"M-4 22 Q50 13 99 24 Q104 31 99 38 Q50 30 -4 37 Z\" fill=\"#F4ECDD\" stroke=\"#7A6450\" stroke-width=\"1.6\" stroke-linejoin=\"round\" /><\/g><path d=\"M106 25 Q136 19 158 27 Q170 35 162 44 Q136 38 107 41 Q104 33 106 25 Z\" fill=\"#F4ECDD\" stroke=\"#7A6450\" stroke-width=\"1.6\" stroke-linejoin=\"round\" /><path d=\"M96 23 L114 24\" fill=\"none\" stroke=\"#DE8A5E\" stroke-width=\"4\" stroke-linecap=\"round\" stroke-linejoin=\"round\" /><path d=\"M114 42 L134 41 L124 53 Z\" fill=\"none\" stroke=\"#0F7A74\" stroke-width=\"1.6\" stroke-dasharray=\"3 3\"/><path d=\"M100 120 L144 120 L140 224 L108 224 Z\" fill=\"#F4ECDD\" stroke=\"#7A6450\" stroke-width=\"1.6\" stroke-linejoin=\"round\" /><circle cx=\"120\" cy=\"100\" r=\"34\" fill=\"#F4ECDD\" stroke=\"#7A6450\" stroke-width=\"1.6\"/><path d=\"M93 78 A35 35 0 0 0 93 122\" fill=\"none\" stroke=\"#86BCD8\" stroke-width=\"4\" stroke-linecap=\"round\" stroke-linejoin=\"round\" /><path d=\"M78 64 L91 68 L80 77 Z\" fill=\"#B9D6E4\" stroke=\"#6E9DB5\" stroke-width=\"1.1\"/><path d=\"M78 136 L91 132 L80 123 Z\" fill=\"#B9D6E4\" stroke=\"#6E9DB5\" stroke-width=\"1.1\"/><path d=\"M36 50 Q100 40 150 82\" fill=\"none\" stroke=\"#DE8A5E\" stroke-width=\"10\" stroke-linecap=\"round\" stroke-linejoin=\"round\" /><\/g><circle cx=\"124\" cy=\"48\" r=\"18\" fill=\"#0F7A74\" fill-opacity=\".07\" stroke=\"#0F7A74\" stroke-width=\"2\"/><g transform=\"translate(186 14)\"><circle r=\"8\" fill=\"#0F7A74\"/><path d=\"M-3.8 0.2 L-1 3 L4 -2.6\" fill=\"none\" stroke=\"#fff\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/><\/g><\/svg>", "en": ["Irritated tendon and bursa under the bony roof", "The inflamed bursa is removed; the bone roof is shaved"], "ar": ["تهيّج الوتر والجراب تحت السقف العظمي للكتف", "إزالة الجراب الملتهب وبرد السقف العظمي"]},"sad");
+</script>
+<script>
+(function(){
+  function esc(s){return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;");}
+  var NOTE = { en: "Your surgeon shared this page with you. Please read it before your operation and write down any questions you want to ask.",
+               ar: "شارك جرّاحك هذه الصفحة معك. نرجو قراءتها قبل العملية، وتدوين أي أسئلة تودّ طرحها عليه." };
+  var FOOT = {"en": "Department of Orthopaedic Surgery · This page does not collect or store any personal information.", "ar": "قسم جراحة العظام · هذه الصفحة لا تجمع أي معلومات شخصية ولا تحفظها."};
+  var b = BROCHURES[0];
+  function show(L){
+    var dir = L==="ar" ? "rtl" : "ltr";
+    document.documentElement.lang = L;
+    document.title = b[L].op + " — " + (L==="ar" ? "دليل المريض" : "Patient guide");
+    document.getElementById("patient").innerHTML =
+      '<header class="phead"><span class="plabel">Patient guide · <span>دليل المريض</span></span>' +
+      '<div class="seg" role="group" aria-label="Language / اللغة">' +
+      '<button type="button" class="ar" data-l="ar" aria-pressed="'+(L==="ar")+'">العربية</button>' +
+      '<button type="button" data-l="en" aria-pressed="'+(L==="en")+'">English</button></div></header>' +
+      '<p class="pnote" dir="'+dir+'" lang="'+L+'">'+esc(NOTE[L])+'</p>' +
+      renderBrochure(b, L) +
+      '<p class="pfoot2" dir="'+dir+'" lang="'+L+'">'+esc(FOOT[L])+'</p>';
+    document.querySelectorAll("#patient [data-l]").forEach(function(btn){
+      btn.addEventListener("click", function(){
+        var l = btn.getAttribute("data-l");
+        try { history.replaceState(null, "", location.pathname + (l==="en" ? "#en" : "")); } catch (e) {}
+        show(l); window.scrollTo(0, 0);
+      });
+    });
+  }
+  function route(){ show(location.hash === "#en" ? "en" : "ar"); }
+  window.addEventListener("hashchange", route);
+  route();
+})();
+</script>
+</body>
+</html>

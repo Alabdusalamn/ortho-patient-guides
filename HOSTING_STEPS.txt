@@ -1,0 +1,31 @@
+Update the patient pages on GitHub (about 2 minutes)
+====================================================
+Each operation now has its own page with a private address. The main address only
+says "scan the QR code your surgeon gave you", so patients cannot see a list of
+operations or move to another guide.
+
+1. Unzip upload-to-github.zip. Open the folder "upload-to-github" (35 files).
+2. Open https://github.com/Alabdusalamn/ortho-patient-guides
+3. Click "Add file" → "Upload files".
+4. Select ALL 35 files in the folder (Ctrl+A on Windows, Cmd+A on Mac) and drag
+   them onto the GitHub page. Wait until all of them are listed.
+5. Click "Commit changes". (index.html is replaced; the other files are added.)
+6. Wait 1–3 minutes. Print QR_Cards_All_Operations.pdf (new codes).
+
+Keep page names unchanged in future updates, so printed QR codes keep working.
+
+
+تحديث صفحات المرضى على GitHub (حوالي دقيقتين)
+=============================================
+لكل عملية الآن صفحة خاصة بعنوان سري. والعنوان الرئيسي لا يعرض إلا عبارة
+"امسح رمز QR الذي أعطاك إياه جرّاحك"، فلا يرى المريض قائمة العمليات ولا ينتقل إلى دليل آخر.
+
+١. فك ضغط upload-to-github.zip وافتح المجلد "upload-to-github" (٣٥ ملفاً).
+٢. افتح https://github.com/Alabdusalamn/ortho-patient-guides
+٣. اضغط "Add file" ← "Upload files".
+٤. حدّد جميع الملفات الـ ٣٥ (Ctrl+A في ويندوز أو Cmd+A في ماك) واسحبها إلى صفحة GitHub،
+   وانتظر حتى تظهر جميعها في القائمة.
+٥. اضغط "Commit changes" (يُستبدل index.html وتُضاف بقية الملفات).
+٦. انتظر ١–٣ دقائق، ثم اطبع QR_Cards_All_Operations.pdf (رموز جديدة).
+
+لا تغيّر أسماء الصفحات في التحديثات القادمة حتى تبقى رموز QR المطبوعة صالحة.
