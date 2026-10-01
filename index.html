@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="robots" content="noindex">
-<title>Patient guides · دليل المريض</title>
+<title>Patient guide · دليل المريض</title>
 <style>
 :root{
   --ground:#EEF3F2; --paper:#FFFFFF; --ink:#14262E; --ink2:#46585E; --line:#D3DEDC;
@@ -268,15 +268,9 @@ body.pmode .topbar,body.pmode .layout{display:none}
 
 body{margin:0}
 #patient{display:block}
-.plist h2{font-size:17px;margin:22px 0 8px;color:var(--accent)}
-.plist ul{list-style:none;margin:0;padding:0;display:grid;gap:8px}
-.plist a{display:block;background:var(--paper);border:1px solid var(--line);border-radius:10px;padding:12px 14px;color:var(--ink);text-decoration:none;font-size:16px;line-height:1.4}
-.plist a small{display:block;color:var(--ink2);font-size:13.5px;margin-top:2px}
-.plist[lang="ar"]{font-family:var(--arabic)}
-.phead .seg a{display:inline-block;padding:7px 14px;font-size:15px;color:var(--ink);text-decoration:none}
-.phead .seg a.ar{font-family:var(--arabic)}
-.phead .seg a[aria-current="true"]{background:var(--accent);color:var(--paper)}
-.phome{font-size:13px;border:1px solid var(--line);border-radius:8px;padding:5px 10px;color:var(--accent);text-decoration:none}
+.pscan{margin-top:28px;text-align:center}
+.pscan svg{width:64px;height:64px;color:var(--accent);margin:0 auto 6px;display:block}
+.pscan .pnote{text-align:start}
 </style>
 </head>
 <body>
@@ -4177,43 +4171,51 @@ window.REFS = {
             ar: "شارك جرّاحك هذه الصفحة معك. نرجو قراءتها قبل العملية، وتدوين أي أسئلة تودّ طرحها عليه." },
     foot: { en: "Department of Orthopaedic Surgery · This page does not collect or store any personal information.",
             ar: "قسم جراحة العظام · هذه الصفحة لا تجمع أي معلومات شخصية ولا تحفظها." },
-    title:{ en: "Patient guides for orthopaedic operations", ar: "أدلة المرضى لعمليات العظام" },
-    intro:{ en: "Choose your operation to read what you need to know before and after it.", ar: "اختر عمليتك لتقرأ ما تحتاج معرفته قبل العملية وبعدها." },
-    all:  { en: "All guides", ar: "كل الأدلة" },
-    missing:{ en: "We could not find this guide. Choose your operation from the list.", ar: "لم نجد هذا الدليل. اختر عمليتك من القائمة." }
+    scan: { en: "To read the guide for your operation, scan the QR code your surgeon gave you.",
+            ar: "لقراءة دليل عمليتك، امسح رمز QR الذي أعطاك إياه جرّاحك." },
+    bad:  { en: "This link is not complete. Please scan the QR code your surgeon gave you again.",
+            ar: "هذا الرابط غير مكتمل. نرجو مسح رمز QR الذي أعطاك إياه جرّاحك مرة أخرى." }
   };
-  var order = ["knee","hip","shoulder","foot","hand"];
+  var QR_ICON = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 3h7v7H3zM14 3h7v7h-7zM3 14h7v7H3zM6 6h1v1H6zM17 6h1v1h-1zM6 17h1v1H6zM14 14h3v3h-3zM18 18h3v3h-3zM14 19h2v2h-2zM19 14h2v2h-2z" fill="currentColor"/></svg>';
   function findB(id){ return BROCHURES.filter(function(x){return x.id===id;})[0]; }
-  function head(L, target){
+  // Header: the language switch appears only on a guide and stays on the same operation.
+  function head(L, withLang){
     return '<header class="phead"><span class="plabel">Patient guide · <span>دليل المريض</span></span>' +
-      '<div class="seg" role="group" aria-label="Language / اللغة">' +
-      '<a class="ar" href="#'+target("ar")+'"'+(L==="ar"?' aria-current="true"':'')+'>العربية</a>' +
-      '<a href="#'+target("en")+'"'+(L==="en"?' aria-current="true"':'')+'>English</a></div></header>';
+      (withLang ? '<div class="seg" role="group" aria-label="Language / اللغة">' +
+        '<button type="button" class="ar" data-l="ar" aria-pressed="'+(L==="ar")+'">العربية</button>' +
+        '<button type="button" data-l="en" aria-pressed="'+(L==="en")+'">English</button></div>' : "") + "</header>";
   }
-  function list(L, msg){
-    var dir = L==="ar"?"rtl":"ltr";
-    document.title = TXT.title[L];
-    document.getElementById("patient").innerHTML = head(L, function(l){ return l; }) +
-      '<section class="plist" dir="'+dir+'" lang="'+L+'"><p class="pnote" dir="'+dir+'" lang="'+L+'">'+esc(msg || TXT.intro[L])+'</p>' +
-      order.map(function(g){
-        var items = BROCHURES.filter(function(b){ return b.group===g; });
-        return '<h2>'+esc(COMMON.groups[g][L])+'</h2><ul>' + items.map(function(b){
-          return '<li><a href="#'+PG_LINK.token(b.id,L)+'">'+esc(b[L].op)+'<small>'+esc(b[L].name)+'</small></a></li>'; }).join("") + '</ul>';
-      }).join("") + '</section><p class="pfoot2" dir="'+dir+'" lang="'+L+'">'+esc(TXT.foot[L])+'</p>';
+  // No list of operations anywhere: without a valid QR link the page only asks the patient to scan their code.
+  function message(kind){
+    document.title = "Patient guide · دليل المريض";
+    document.documentElement.lang = "ar";
+    document.getElementById("patient").innerHTML = head("ar", false) +
+      '<div class="pscan">' + QR_ICON +
+      '<p class="pnote" dir="rtl" lang="ar">'+esc(TXT[kind].ar)+'</p>' +
+      '<p class="pnote" dir="ltr" lang="en">'+esc(TXT[kind].en)+'</p></div>' +
+      '<p class="pfoot2" dir="rtl" lang="ar">'+esc(TXT.foot.ar)+'</p>' +
+      '<p class="pfoot2" dir="ltr" lang="en">'+esc(TXT.foot.en)+'</p>';
   }
   function guide(p){
     var b = findB(p.id), L = p.lang, dir = L==="ar"?"rtl":"ltr";
-    if (!b) { list(L, TXT.missing[L]); return; }
+    if (!b) { message("bad"); return; }
     document.title = b[L].op + " — " + (L==="ar" ? "دليل المريض" : "Patient guide");
-    document.getElementById("patient").innerHTML = head(L, function(l){ return PG_LINK.token(b.id,l); }) +
+    document.documentElement.lang = L;
+    document.getElementById("patient").innerHTML = head(L, true) +
       '<p class="pnote" dir="'+dir+'" lang="'+L+'">'+esc(TXT.note[L])+'</p>' +
       renderBrochure(b, L) +
-      '<p class="pfoot2" dir="'+dir+'" lang="'+L+'">'+esc(TXT.foot[L])+' · <a class="phome" href="#'+L+'">'+esc(TXT.all[L])+'</a></p>';
+      '<p class="pfoot2" dir="'+dir+'" lang="'+L+'">'+esc(TXT.foot[L])+'</p>';
+    document.querySelectorAll("#patient [data-l]").forEach(function(btn){
+      btn.addEventListener("click", function(){
+        var l = btn.getAttribute("data-l");
+        try { history.replaceState(null, "", "#" + PG_LINK.token(b.id, l)); } catch (e) {}
+        guide({ id: b.id, lang: l }); window.scrollTo(0, 0);
+      });
+    });
   }
   function route(){
     var h = location.hash.replace(/^#/, ""), p = PG_LINK.parse(h);
-    document.documentElement.lang = p ? p.lang : (h==="en" ? "en" : "ar");
-    if (p) guide(p); else list(h==="en" ? "en" : "ar");
+    if (p) guide(p); else message(h ? "bad" : "scan");
     window.scrollTo(0, 0);
   }
   window.addEventListener("hashchange", route);
