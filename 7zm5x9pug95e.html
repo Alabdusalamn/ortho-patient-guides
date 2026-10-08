@@ -98,6 +98,8 @@ ul.small{font-size:13.5px;color:var(--ink2)}
 .timeline li:last-child .tdot{background:var(--accent)}
 .twhen{font-weight:600;color:var(--accent);font-size:14px;font-variant-numeric:tabular-nums}
 .twhat{font-size:13.5px;line-height:1.45}
+.track+.track{margin-top:14px;padding-top:12px;border-top:1px dashed var(--line)}
+.trackh{margin:0 0 4px;font-size:14px;font-weight:600;color:var(--ink)}
 .note{font-size:12.5px;color:var(--ink2);margin-top:6px !important}
 .backto{margin:0;display:grid;gap:8px}
 .backto div{display:grid;grid-template-columns:78px 1fr;gap:10px;border-bottom:1px dashed var(--line);padding-bottom:6px}
@@ -411,11 +413,19 @@ window.LABELS = {
       '<div class="ipanel good">' + p.fix + '<figcaption><b>' + esc(t.fix) + "</b>" + esc(cap[1]) + "</figcaption></div>" +
       '<p class="inote">' + esc(t.picNote) + "</p></figure>";
   }
+  function phaseList(phs, enPhs) {
+    return '<ol class="timeline">' + phs.map(function (p, k) {
+      return '<li><span class="tdot"></span><span class="twhen">' + icon(iconFor(enPhs[k][1], "phase"), "t") + esc(p[0]) + '</span><span class="twhat">' + esc(p[1]) + "</span></li>";
+    }).join("") + "</ol>";
+  }
+  // One timeline, or (when an operation has two versions, e.g. meniscus repair vs trimming) one labelled row each
   function timeline(b, L, t) {
-    var d = b[L];
-    return '<ol class="timeline">' + d.phases.map(function (p, k) {
-      return '<li><span class="tdot"></span><span class="twhen">' + icon(iconFor(b.en.phases[k][1], "phase"), "t") + esc(p[0]) + '</span><span class="twhat">' + esc(p[1]) + "</span></li>";
-    }).join("") + "</ol>" + '<p class="note">' + esc(t.recNote) + "</p>";
+    var d = b[L], body = d.tracks
+      ? '<div class="tracks">' + d.tracks.map(function (tr, i) {
+          return '<div class="track"><h4 class="trackh">' + esc(tr.label) + "</h4>" + phaseList(tr.phases, b.en.tracks[i].phases) + "</div>";
+        }).join("") + "</div>"
+      : phaseList(d.phases, b.en.phases);
+    return body + '<p class="note">' + esc(t.recNote) + "</p>";
   }
   function backTable(d, t) {
     return '<dl class="backto">' +
@@ -439,20 +449,23 @@ window.LABELS = {
       sec(t.how, "<p>" + esc(d.how) + "</p>", "how");
   };
   // Part 2: options, risks, before surgery
-  window.renderPart2 = function (b, L) {
+  // opt.care (printed leaflet only): this leaflet also carries the after-surgery care list on page 2 —
+  // set per leaflet with layout.careOnPage2 when page 3 would otherwise need a font below 10 pt.
+  window.renderPart2 = function (b, L, opt) {
     var d = b[L], t = LABELS[L], C = COMMON;
     return '<div class="cols">' +
       sec(t.alt, list(d.alt, "alt")) +
       sec(t.risks, list(d.risks, "risk") + "<h4>" + esc(t.general) + "</h4>" + list(C[L].generalRisks, "risk small"), "risks") +
       "</div>" +
-      sec(t.before, iconList(C[L].beforeSurgery, BEFORE_ICONS, "before"), "beforesec", "calendar");
+      sec(t.before, iconList(C[L].beforeSurgery, BEFORE_ICONS, "before"), "beforesec", "calendar") +
+      (opt && opt.care ? sec(t.care, iconList(d.care, careIcons(b), "care")) : "");
   };
   // Part 3: recovery timeline and aftercare (the timeline moved here from part 2 in the final review, to keep
   // every printed leaflet page at 9.6 pt or more after the corrections lengthened the risk lists)
-  window.renderPart3 = function (b, L) {
+  window.renderPart3 = function (b, L, opt) {
     var d = b[L], t = LABELS[L], C = COMMON;
     return sec(t.recovery, timeline(b, L, t), "recovery") +
-      sec(t.care, iconList(d.care, careIcons(b), "care")) +
+      (opt && opt.noCare ? "" : sec(t.care, iconList(d.care, careIcons(b), "care"))) +
       sec(t.back, backTable(d, t)) +
       sec(t.flags, iconList(d.flags.concat(C[L].generalFlags), flagIcons(b), "flag"), "flags", "alert") +
       '<p class="disclaimer">' + esc(C[L].disclaimer) + "</p>" + stamp(t);
